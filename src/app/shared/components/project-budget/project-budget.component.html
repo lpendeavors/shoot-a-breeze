@@ -1,0 +1,126 @@
+<div class="project-budget-container">
+  <div class="text-center">
+    <button type="button" (click)="showModal(newIncomeItemModalTemplate)" class="btn btn-secondary btn-sm"><i class="fa fa-plus"></i> Add Income</button>&nbsp;
+    <button type="button" (click)="showModal(newExpenseItemModalTemplate)" class="btn btn-secondary btn-sm"><i class="fa fa-minus"></i> Add Expense</button>&nbsp;
+    <button type="button" class="btn btn-secondary btn-sm" disabled="true"><i class="fa fa-print"></i> Print</button>
+  </div><br>
+  <table class="table">
+    <tr>
+      <th colspan="6" class="text-center">Income</th>
+    </tr>
+    <tr>
+      <th>Item</th>
+      <th>Estimate</th>
+      <th>Actual</th>
+      <th>Difference</th>
+    </tr>
+    <tr *ngFor="let incomeItem of incomeItems">
+      <td>{{ incomeItem.name }}</td>
+      <td>${{ incomeItem.estimatedAmount }}</td>
+      <td>${{ incomeItem.actualAmount }}</td>
+      <td>${{ incomeItem.estimatedAmount - incomeItem.actualAmount }}</td>
+    </tr>
+    <tr>
+      <th>Total</th>
+      <th>${{ totalEstimatedIncome }}</th>
+      <th>${{ totalActualIncome }}</th>
+      <th>${{ totalEstimatedIncome - totalActualIncome }}</th>
+    </tr>
+    <tr>
+      <th colspan="6" class="text-center">Expenses</th>
+    </tr>
+    <tr>
+      <th>Item</th>
+      <th>Estimate</th>
+      <th>Actual</th>
+      <th>Difference</th>
+    </tr>
+    <tr *ngFor="let expenseItem of expenseItems">
+      <td>{{ expenseItem.name }}</td>
+      <td>${{ expenseItem.estimatedCost }}</td>
+      <td>${{ expenseItem.actualCost }}</td>
+      <td>${{ expenseItem.estimatedCost - expenseItem.actualCost }}</td>
+    </tr>
+    <tr>
+      <th>Total</th>
+      <th>${{ totalEstimatedExpenses }}</th>
+      <th>${{ totalActualExpenses }}</th>
+      <th>${{ totalEstimatedExpenses - totalActualExpenses }}</th>
+    </tr>
+    <tr>
+      <th colspan="6" class="text-center">Profit</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Estimate</th>
+      <th>Actual</th>
+      <th>Difference</th>
+    </tr>
+    <tr>
+      <th>Total</th>
+      <th>${{ totalEstimatedIncome - totalEstimatedExpenses }}</th>
+      <th>${{ totalActualIncome - totalActualExpenses }}</th>
+      <th>${{ profitDifference }}</th>
+    </tr>
+  </table>
+</div>
+
+<ng-template #newIncomeItemModalTemplate>
+  <div class="modal-header">
+    <h4>New Income</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="newIncomeItemForm">
+      <div class="form-group">
+        <input type="text" formControlName="name" class="form-control" placeholder="Name">
+      </div>
+      <div class="form-row">
+        <div class="col-sm-6">
+            <input type="number" formControlName="estimatedAmount" class="form-control">
+            <small id="incomeEstimateHelpBlock" class="form-text text-muted">Estimated Amount</small>
+        </div>
+        <div class="col-sm-6">
+            <input type="number" formControlName="actualAmount" class="form-control">
+            <small id="incomeActualHelpBlock" class="form-text text-muted">Actual Amount</small>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" (click)="closeModal()" class="btn btn-secondary">Close</button>
+    <button type="button" (click)="saveIncomeItem()" class="btn btn-primary" [disabled]="!newIncomeItemForm.valid">Save income</button>
+  </div>
+</ng-template>
+
+<ng-template #newExpenseItemModalTemplate>
+  <div class="modal-header">
+    <h4>New Expense</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="newExpenseItemForm">
+      <div class="form-group">
+        <input type="text" formControlName="name" class="form-control" placeholder="Name">
+      </div>
+      <div class="form-row">
+        <div class="col-sm-6">
+            <input type="number" formControlName="estimatedCost" class="form-control">
+            <small id="expenseEstimateHelpBlock" class="form-text text-muted">Estimated Cost</small>
+        </div>
+        <div class="col-sm-6">
+            <input type="number" formControlName="actualCost" class="form-control">
+            <small id="expenseActualHelpBlock" class="form-text text-muted">Actual Cost</small>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" (click)="closeModal()" class="btn btn-secondary">Close</button>
+    <button type="button" (click)="saveExpenseItem()" class="btn btn-primary" [disabled]="!newExpenseItemForm.valid">Save expense</button>
+  </div>
+</ng-template>

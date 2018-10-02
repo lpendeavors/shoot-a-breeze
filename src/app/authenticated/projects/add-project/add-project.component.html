@@ -1,0 +1,42 @@
+<form [formGroup]="newProjectForm" (ngSubmit)="saveProject()">
+    <div class="form-group">
+      <label for="newProjectTitle">Title</label>
+      <input formControlName="title" type="text" class="form-control" id="newProjectTitle">
+    </div>
+    <div class="form-group">
+      <label for="newProjectDescription">Description</label>
+      <input formControlName="description" type="text" class="form-control" id="newProjectDescription">
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="newProjectCategory">Category</label>
+        <select id="newProjectCategory" class="form-control">
+          <option selected>Choose...</option>
+          <option>Music Video</option>
+          <option>Short Film</option>
+          <option>Wedding/Event</option>
+        </select>
+        <small id="projectCategoryAddBlock" class="form-text text-muted">
+          New Category
+        </small>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="newProjectDuration">Duration</label>
+        <input formControlName="duration" type="number" class="form-control" id="newProjectDuration">
+        <small id="projectDurationHelpBlock" class="form-text text-muted">
+          Approximate minutes
+        </small>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="newProjectStartDate">Start Date</label>
+        <input formControlName="startDate" type="date" class="form-control" id="newProjectStartDate">
+      </div>
+      <div class="form-group col-md-3">
+        <label for="newProjectDueDate">Due Date</label>
+        <input formControlName="endDate" type="date" class="form-control" id="newProjectDueDate">
+      </div>
+    </div>
+    <div class="text-center">
+      <button [disabled]="!newProjectForm.valid" type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>

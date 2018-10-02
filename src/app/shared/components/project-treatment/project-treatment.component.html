@@ -1,0 +1,182 @@
+<div class="project-treatment-container">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <form [formGroup]="projectTreatmentForm">
+          <div class="form-group row">
+            <label for="projectTreatmentLogline" class="col-sm-2 col-form-label">Logline</label>
+            <div class="col-sm-10">
+              <input formControlName="logline" type="text" class="form-control" id="projectTreatmentLogline">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="projectTreatmentSynopsis" class="col-sm-2 col-form-label">Synopsis</label>
+            <div class="col-sm-10">
+              <textarea formControlName="synopsis" class="form-control" id="projectTreatmentSynopsis" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="projectTargetAudience" class="col-sm-2 col-form-label">Target Audience</label>
+            <div class="col-sm-10">
+              <input formControlName="targetAudience" type="text" class="form-control" id="projectTargetAudience">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="projectCharacters" class="col-sm-2 col-form-label">Characters</label>
+            <div class="col-sm-10">
+              <input *ngIf="characters.length === 0" type="text" readonly class="form-control-plaintext" id="projectCharacters" placeholder="No characters">
+              <div *ngIf="characters.length > 0" class="card-columns">
+                <div *ngFor="let character of characters" class="card">
+                  <div class="card-body">
+                    <h5>{{ character.name }}</h5>
+                    <p><em>{{ character.background || "No background" }}</em></p>
+                  </div>
+                </div>
+              </div>
+              <small id="passwordHelpBlock" class="form-text text-muted">
+                <button class="btn btn-secondary btn-sm" (click)="showAddCharacterModal(addCharacterModalTemplate)" [disabled]="!projectTreatmentForm.valid"><i class="fa fa-plus"></i> Add Character</button>
+              </small>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="projectLocations" class="col-sm-2 col-form-label">Locations</label>
+            <div class="col-sm-10">
+              <input *ngIf="locations.length === 0" type="text" readonly class="form-control-plaintext" id="projectLocations" placeholder="No locations">
+              <div *ngIf="locations.length > 0" class="card-columns">
+                <div *ngFor="let location of locations" class="card">
+                  <div class="card-body">
+                    <h5>{{ location.name }}</h5>
+                    <p><em>{{ location.notes || "No notes" }}</em></p>
+                  </div>
+                </div>
+              </div>
+              <small id="passwordHelpBlock" class="form-text text-muted">
+                <button class="btn btn-sm btn-secondary" (click)="showAddLocationModal(addLocationModalTemplate)" [disabled]="!projectTreatmentForm.valid">
+                  <i class="fa fa-plus"></i> Add Location
+                </button>
+              </small>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="projectVisualElements" class="col-sm-2 col-form-label">Visual Elements</label>
+            <div class="col-sm-10">
+              <input *ngIf="visualElements.length === 0" type="text" readonly class="form-control-plaintext" id="projectVisualElements" placeholder="No visual elements">
+              <div *ngIf="visualElements.length > 0" class="card-columns">
+                <div *ngFor="let visualElement of visualElements" class="card">
+                  <div class="card-body">
+                    <h5>{{ visualElement.name }}</h5>
+                    <p><em>{{ visualElement.notes || "No notes" }}</em></p>
+                  </div>
+                </div>
+              </div>
+              <small id="projectVisualsHelpBlock" class="form-text text-muted">
+                  <button class="btn btn-sm btn-secondary" (click)="showAddVisualElementModal(addVisualElementModalTemplate)" [disabled]="!projectTreatmentForm.valid"><i class="fa fa-plus"></i> Add Visual Element</button>
+              </small>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="projectAudioElements" class="col-sm-2 col-form-label">Audio Elements</label>
+            <div class="col-sm-10">
+              <input *ngIf="audioElements.length === 0" type="text" readonly class="form-control-plaintext" id="projectAudioElements" placeholder="No audio elements">
+              <div *ngIf="audioElements.length > 0" class="card-columns">
+                <div *ngFor="let audioElement of audioElements" class="card">
+                  <div class="card-body">
+                    <h5>{{ audioElement.name }}</h5>
+                    <p><em>{{ audioElement.notes || "No notes" }}</em></p>
+                  </div>
+                </div>
+              </div>
+              <small id="projectAudioHelpBlock" class="form-text text-muted">
+                  <button class="btn btn-sm btn-secondary" (click)="showAddAudioElementModal(addAudioElementModalTemplate)" [disabled]="!projectTreatmentForm.valid"><i class="fa fa-plus"></i> Add Audio Element</button>
+              </small>
+            </div>
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-primary" (click)="saveTreatment()" [disabled]="!projectTreatmentForm.valid">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #addCharacterModalTemplate>
+  <div class="modal-header">
+    <h4 class="text-center">New Character</h4>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="newCharacterForm">
+      <div class="form-group">
+        <input formControlName="name" type="text" class="form-control" id="newCharacterName" placeholder="Name">
+      </div>
+      <div class="form-group">
+        <textarea formControlName="background" class="form-control" id="newCharacterBackground" rows="3" placeholder="Background info"></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer"> 
+    <button type="button" class="btn btn-secondary" (click)="cancelModal()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="addCharacter()" [disabled]="!newCharacterForm.valid" >Save character</button>
+  </div>
+</ng-template>
+
+<ng-template #addLocationModalTemplate>
+  <div class="modal-header">
+    <h4 class="text-center">New Location</h4>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="newLocationForm">
+      <div class="form-group">
+        <input type="text" formControlName="name" class="form-control" id="newLocationName" placeholder="Name">
+      </div>
+      <div class="form-group">
+        <textarea formControlName="notes" class="form-control" id="newLocationNotes" rows="3" placeholder="Addional info"></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="cancelModal()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="addLocation()" [disabled]="!newLocationForm.valid" >Save location</button>
+  </div>
+</ng-template>
+
+<ng-template #addVisualElementModalTemplate>
+  <div class="modal-header">
+    <h4 class="text-center">New Visual Element</h4>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="newVisualElementForm">
+      <div class="form-group">
+        <input type="text" formControlName="name" class="form-control" id="newVisualElementName" placeholder="Name">
+      </div>
+      <div class="form-group">
+        <textarea formControlName="notes" class="form-control" id="newVisualElementNotes" rows="3" placeholder="Addional info"></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="cancelModal()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="addVisualElement()" [disabled]="!newVisualElementForm.valid" >Save element</button>
+  </div>
+</ng-template>
+
+<ng-template #addAudioElementModalTemplate>
+    <div class="modal-header">
+      <h4 class="text-center">New Audio Element</h4>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="newAudioElementForm">
+        <div class="form-group">
+          <input type="text" formControlName="name" class="form-control" id="newAudioElementName" placeholder="Name">
+        </div>
+        <div class="form-group">
+          <textarea formControlName="notes" class="form-control" id="newAudioElementNotes" rows="3" placeholder="Addional info"></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="cancelModal()">Close</button>
+      <button type="button" class="btn btn-primary" (click)="addAudioElement()" [disabled]="!newAudioElementForm.valid" >Save element</button>
+    </div>
+  </ng-template>
+  

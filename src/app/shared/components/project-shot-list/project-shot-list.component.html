@@ -1,0 +1,69 @@
+<div class="project-shot-list-container">
+  <div class="text-center">
+    <button (click)="openModal(newShotListItemModalTemplate)" class="btn btn-sm btn-secondary"><i class="fa fa-plus"></i> Add Shot</button>&nbsp;
+    <button class="btn btn-sm btn-secondary" disabled="true"><i class="fa fa-upload"></i> Export</button>&nbsp;
+    <button class="btn btn-sm btn-secondary" disabled="true"><i class="fa fa-print"></i> Print</button>
+  </div><br>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Shot</th>
+        <th>Subject</th>
+        <th>Angle</th>
+        <th>Movement</th>
+        <th>Equipment</th>
+        <th>Lens</th>
+        <th>Sound</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="project.shotList">
+      <tr *ngFor="let shot of project.shotList">
+        <td>{{ shot.shotNumber }}</td>
+        <td>{{ shot.subject }}</td>
+        <td>{{ shot.angle }}</td>
+        <td>{{ shot.movement }}</td>
+        <td>{{ shot.equipment }}</td>
+        <td>{{ shot.lens }}</td>
+        <td>{{ shot.sound }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #newShotListItemModalTemplate>
+  <div class="modal-header">
+    <h4>New Shot</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="newShotListItemForm">
+      <div class="form-group">
+        <input formControlName="shotNumber" type="text" class="form-control" placeholder="Shot Number">
+      </div>
+      <div class="form-group">
+        <input formControlName="subject" type="text" class="form-control" placeholder="Subject">
+      </div>
+      <div class="form-group">
+        <input formControlName="angle" type="text" class="form-control" placeholder="Angle">
+      </div>
+      <div class="form-group">
+        <input formControlName="movement" type="text" class="form-control" placeholder="Movement">
+      </div>
+      <div class="form-group">
+        <input formControlName="equipment" type="text" class="form-control" placeholder="Equipment">
+      </div>
+      <div class="form-group">
+        <input formControlName="lens" type="text" class="form-control" placeholder="Lens">
+      </div>
+      <div class="form-group">
+        <input formControlName="sound" type="text" class="form-control" placeholder="Sound">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button (click)="closeModal()" type="button" class="btn btn-secondary">Close</button>
+    <button (click)="saveShotListItem()" [disabled]="!newShotListItemForm.valid" type="button" class="btn btn-primary">Save shot</button>
+  </div>
+</ng-template>

@@ -1,0 +1,118 @@
+<div class="projects-cast-crew-container">
+  <div class="card">
+    <div class="card-header">
+      <strong>Cast</strong>
+    </div>
+    <div class="card-body">
+      <div class="text-center">
+        <button type="button" (click)="openModal(newCastMemberModalTemplate)" class="btn btn-secondary btn-sm"><i class="fa fa-plus"></i> Add Cast</button>&nbsp;
+        <button type="button" class="btn btn-secondary btn-sm" disabled="true"><i class="fa fa-print"></i> Print</button>
+      </div>
+      <table class="table table-borderless table-sm">
+        <thead>
+          <tr>
+            <th width="5%"></th>
+            <th width="25%">Character</th>
+            <th>Cast Member</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="castMembers.length > 0">
+          <tr *ngFor="let castMember of castMembers">
+            <td><i class="fa fa-edit"></i></td>
+            <td>{{ castMember.character.name }}</td>
+            <td>{{ castMember.name }}</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="castMembers.length === 0">
+          <tr>
+            <td></td>
+            <td><em>No cast</em></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <strong>Crew</strong>
+    </div>
+    <div class="card-body">
+      <div class="text-center">
+        <button type="button" (click)="openModal(newCrewMemberModalTemplate)" class="btn btn-secondary btn-sm"><i class="fa fa-plus"></i> Add Crew</button>&nbsp;
+        <button type="button" class="btn btn-secondary btn-sm" disabled="true"><i class="fa fa-print"></i> Print</button>
+      </div>
+      <table class="table table-borderless table-sm">
+        <thead>
+          <tr>
+            <th width="5%"></th>
+            <th width="25%">Responsibility</th>
+            <th>Crew Member</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="crewMembers.length > 0">
+          <tr *ngFor="let crewMember of crewMembers">
+            <td><i class="fa fa-edit"></i></td>
+            <td>{{ crewMember.responsibility }}</td>
+            <td>{{ crewMember.name }}</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="crewMembers.length === 0">
+          <tr>
+            <td></td>
+            <td><em>No crew</em></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #newCastMemberModalTemplate>
+  <div class="modal-header">
+    <h4>New Cast</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="newCastMemberForm">
+      <div class="form-group">
+        <input type="text" formControlName="name" class="form-control" placeholder="Name">
+      </div>
+      <div class="form-group">
+        <select formControlName="character" class="form-control" placeholder="Select character">
+          <option *ngFor="let character of characters" [ngValue]="character">{{character.name}}</option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" (click)="closeModal()" class="btn btn-secondary">Close</button>
+    <button type="button" (click)="saveCastMember()" class="btn btn-primary" [disabled]="!newCastMemberForm.valid">Save cast</button>
+  </div>
+</ng-template>
+
+<ng-template #newCrewMemberModalTemplate>
+  <div class="modal-header">
+    <h4>New Crew</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="newCrewMemberForm">
+      <div class="form-group">
+        <input type="text" formControlName="name" class="form-control" placeholder="Name">
+      </div>
+      <div class="form-group">
+        <input type="text" formControlName="responsibility" class="form-control" placeholder="Responsibility">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" (click)="closeModal()" class="btn btn-secondary">Close</button>
+    <button type="button" (click)="saveCrewMember()" class="btn btn-primary" [disabled]="!newCrewMemberForm.valid">Save crew</button>
+  </div>
+</ng-template>

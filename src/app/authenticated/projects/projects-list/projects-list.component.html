@@ -1,0 +1,19 @@
+<div *ngIf="projectsLoading" class="alert alert-warning">Loading...</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col" sortable-column="title">Title</th>
+      <th scope="col">Category</th>
+      <th scope="col">Client</th>
+      <th scope="col">Due Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let project of projects | async">
+      <td><a class="project-link" (click)="openProject(project)">{{ project.title }}</a></td>
+      <td>{{ project.category }}</td>
+      <td></td>
+      <td>{{ project.endDate }}</td>
+    </tr>
+  </tbody>
+</table>

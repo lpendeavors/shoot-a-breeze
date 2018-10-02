@@ -1,0 +1,50 @@
+<div class="project-storyboard-container">
+  <div class="container">
+    <div *ngIf="project.shotList" class="row">
+      <div *ngFor="let shot of project.shotList" class="col-sm-2 col-md-4">
+        <div class="card">
+          <img *ngIf="shot.image" class="card-img-top" src="{{shot.image}}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="text-center">{{ shot.angle }} shot of {{ shot.subject }}</h5>
+            <p><em>Using {{ shot.equipment }} with a {{ shot.lens }} lens, and a {{ shot.sound }} for sound. Camera movement is {{ shot.movement }}.</em></p>
+            <button *ngIf="!shot.image" (click)="showModal(addImageToShotModalTemplate, shot)" class="btn btn-sm btn-link">Add image</button>
+            <small class="pull-right text-muted">{{ shot.shotNumber }}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!project.shotList" class="row">
+      <p class="lead">No shots yet</p>
+    </div>
+  </div>
+</div>
+
+<ng-template #addImageToShotModalTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add Image</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h5>{{ selectedShot.shotNumber }} - {{ selectedShot.angle }} shot of {{ selectedShot.subject }}</h5>
+    <form>
+      <div class="form-group">
+        <div class="custom-file">
+          <input type="file" (change)="onImageAdded($event)" class="custom-file-input" id="customFile">
+          <label class="custom-file-label" for="customFile">Choose file</label>
+          <small *ngIf="selectedImage" id="selectedImageHelpBlock" class="form-text text-muted">
+            {{ selectedImage.name }}
+          </small>
+        </div>
+      </div>
+      <div class="form-group">
+        <textarea class="form-control" placeholder="Additional notes" rows="3"></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" (click)="closeModal()" class="btn btn-secondary">Close</button>
+    <button type="button" (click)="saveImage()" [disabled]="!selectedImage" class="btn btn-primary">Save image</button>
+  </div>
+</ng-template>

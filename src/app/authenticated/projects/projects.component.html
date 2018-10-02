@@ -1,0 +1,26 @@
+<div class="projects-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 col-md-9 col-lg-10">
+        <header>
+          <h1>Projects</h1>
+        </header>
+        <main class="projects-main">
+          <router-outlet></router-outlet>
+        </main>
+      </div>
+      <div class="col-sm-4 col-md-3 col-lg-2">
+        <nav class="projects-nav">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/projects">All Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/projects/add">New Project</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>

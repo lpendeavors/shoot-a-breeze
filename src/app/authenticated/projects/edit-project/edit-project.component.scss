@@ -1,0 +1,13 @@
+.edit-project-container {
+    margin-top: 1.25rem;
+}
+
+.edit-project-nav {
+    margin-top: 1.50rem;
+}
+
+@media screen and (max-width: 993px) {
+    .project-tabs {
+        display: none;
+    }
+}

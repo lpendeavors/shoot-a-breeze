@@ -1,0 +1,75 @@
+<div class="edit-project-container">
+    <div class="container">
+      <div class="row" *ngIf="project">
+        <div class="col-sm-8 col-md-9 col-lg-10">
+          <header>
+            <h1>{{ project.title }}</h1>
+            <p class="lead">{{ project.description }}</p>
+          </header>
+          <main class="project-main">
+            <div class="project-tabs">
+              <tabset>
+                <tab heading="Timeline" (select)="onTabSelect($event)">
+                  <app-project-timeline
+                    [project]="project"
+                    (taskAdded)="onTaskAdded($event)"
+                    (taskUpdated)="onTaskUpdated($event)"
+                    (taskDeleted)="onTaskDeleted($event)"
+                    (linkAdded)="onLinkAdded($event)"
+                    (linkUpdated)="onLinkUpdated($event)"
+                    (linkDeleted)="onLinkDeleted($event)"></app-project-timeline>
+                </tab>
+                <tab heading="Treatment" (select)="onTabSelect($event)">
+                  <app-project-treatment
+                    [project]="project"
+                    (treatmentSaved)="onTreatmentSaved($event)"></app-project-treatment>
+                </tab>
+                <tab heading="Script" (select)="onTabSelect($event)">
+                  <app-project-script
+                    [project]="project"
+                    (scriptSaved)="onScriptSaved($event)"></app-project-script>
+                </tab>
+                <tab heading="Shot List" (select)="onTabSelect($event)">
+                  <app-project-shot-list
+                    [project]="project"
+                    (shotSaved)="onShotSaved($event)"></app-project-shot-list>
+                </tab>
+                <tab heading="Storyboard" (select)="onTabSelect($event)">
+                  <app-project-storyboard
+                    [project]="project"
+                    (storyboardUpdated)="onStoryboardUpdated($event)"></app-project-storyboard>
+                </tab>
+                <tab heading="Cast & Crew" (select)="onTabSelect($event)">
+                  <app-project-cast-crew
+                    [project]="project"
+                    (castUpdated)="onCastUpdated($event)"
+                    (crewUpdated)="onCrewUpdated($event)"></app-project-cast-crew>
+                </tab>
+                <tab heading="Budget" (select)="onTabSelect($event)">
+                  <app-project-budget
+                   [project]="project"
+                   (budgetUpdated)="onBudgetUpdated($event)"></app-project-budget>
+                </tab>
+              </tabset>
+            </div>
+          </main>
+        </div>
+        <div class="col-sm-4 col-md-3 col-lg-2">
+          <nav class="edit-project-nav">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/admin/projects">All Projects</a>
+              </li>
+              <!-- Timeline tab side navigation options -->
+              <!-- Treatment tab side navigation options -->
+              <!-- Script tab side navigation options -->
+              <!-- Shot List tab side navigation options -->
+              <!-- Storyboard tab side navigation options -->
+              <!-- Cast & Crew tab side navigation options -->
+              <!-- Budget tab side navigation options -->
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
